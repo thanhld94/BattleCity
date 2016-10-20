@@ -1,0 +1,8 @@
+# java files
+*.class
+
+# vim template files
+*.swp
+
+# mac os files
+.DS_Store
