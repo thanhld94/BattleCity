@@ -50,12 +50,12 @@
 
 #Player #
 
-# Description ##
+## Description ##
 - The agent object. controlling the player movement. Receving info of Environment, Enemies from Game.
 
-# Attribute ##
+## Attribute ##
 - position
 
-# Methods ##
+## Methods ##
 - constructor(Environment env, List<Enemy> enemies)
 - move()
