@@ -21,7 +21,8 @@
   - run(): start game
 
 # GUI:
-## Description: Create a game UI, drawing environment, players and enemies. Receiving environment, enemies and agent info from Game
+## Description: 
+  - Create a game UI, drawing environment, players and enemies. Receiving environment, enemies and agent info from Game
 ## Methods:
   - constructor (Environment env, List<Enemy> enemies, Player player)
   - draw(Environment env, List<Enemy> enemies, Player player)
@@ -29,7 +30,9 @@
   - drawEnemies(List<Enemy> enemies)
   - drawPlayer(Player player)
 
-# Enemy: A basic unit with basic pseudeo random movement. Keep moving ahead until it reaches a wall, and fire when Player oobjec the base is insight. 
+# Enemy: 
+## Description:
+  - A basic unit with basic pseudeo random movement. Keep moving ahead until it reaches a wall, and fire when Player oobjec the base is insight. 
 ## Attributes:
   - Position (row, col)
   - moving direction
@@ -37,9 +40,11 @@
   - constructor (Environment env, Player player)
   - move()
 
-# Player: The agent object. controlling the player movement. Receving info of Environment, Enemies from Game.
-# Attribute:
+# Player: 
+## Description:
+  - The agent object. controlling the player movement. Receving info of Environment, Enemies from Game.
+## Attribute:
   - position
-# Methods:
+## Methods:
   - constructor(Environment env, List<Enemy> enemies)
   - move()
