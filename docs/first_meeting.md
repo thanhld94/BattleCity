@@ -1,7 +1,7 @@
 #Designs#
  - 5 main objects: Game, GUI, Enemies, Environment, Agent
 
-#Game Object # 
+#Game Object# 
 
 ## Description ##
 -The Game object is the main object. It has all other objects (GUI, Enemies, Environment and Agent) as its attribute.
