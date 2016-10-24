@@ -2,7 +2,7 @@ import random
 from Player import *
 from Environment import *
 
-class Agent(Player):
+class Enemy(Player):
   dx = [1, -1, 0, 0]
   dy = [0, 0, 1, -1]
 
