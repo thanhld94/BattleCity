@@ -1,5 +1,3 @@
-import Environment
-
 class Player:
   def setup(self, row, col):
     #setup initial position
