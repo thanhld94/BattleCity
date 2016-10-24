@@ -9,7 +9,6 @@ env = Environment()
 p1 = ControlPlayer(env)
 enemy = Enemy(env, p1)
 enemy.setup(9, 6)
-enemy.move()
 
 def print_board(env, p1, p2):
   state = {0: ' ', 1: '#', 2: '~', 3: '$'}

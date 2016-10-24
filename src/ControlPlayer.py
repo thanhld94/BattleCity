@@ -58,10 +58,3 @@ class ControlPlayer(Player):
             self.pos_col = next_col
             print("New pos: "+str(self.pos_row)+" "+str(self.pos_col));
         return 
-
-#Test functions
-env = Environment()        
-player = ControlPlayer(env)
-player.move()
-            
-        
