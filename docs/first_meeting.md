@@ -37,7 +37,7 @@
 
 # Environment #
 
-## Attributes ## 
+##Attributes## 
 - int board[][]: each cell will represent status of each cell
   + 0: empty cell (can move through, can shoot through)
   + 1: wall cell (cannot move through, break if shot)
