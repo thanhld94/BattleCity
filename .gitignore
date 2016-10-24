@@ -1,6 +1,9 @@
 # java files
 *.class
 
+# python files
+__pycache__
+
 # vim template files
 *.swp
 
