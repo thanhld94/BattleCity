@@ -54,9 +54,9 @@ class ControlPlayer(Player):
             next_row = (self.pos_row + self.dx[self.direction]) % len(self.environment.board)
             next_col = (self.pos_col + self.dy[self.direction]) % len(self.environment.board[0])
             print("Original pos: "+str(self.pos_row)+" "+str(self.pos_col))
-            self.row = next_row
-            self.col = next_col
-            print("New pos: "+str(self.row)+" "+str(self.col));
+            self.pos_row = next_row
+            self.pos_col = next_col
+            print("New pos: "+str(self.pos_row)+" "+str(self.pos_col));
         return 
 
 #Test functions
