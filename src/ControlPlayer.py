@@ -44,6 +44,7 @@ class ControlPlayer(Player):
     
     def move(self):
         inputMove = input("Enter direction: ")
+        # Test print move - delete afterward
         print(str(inputMove))
         if inputMove == ' ':
             self.shoot()
