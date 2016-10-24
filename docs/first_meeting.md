@@ -1,7 +1,7 @@
-#Designs#
+# Designs #
  - 5 main objects: Game, GUI, Enemies, Environment, Agent
 
-#Game Object# 
+# Game Object #
 
 ## Description ##
 -The Game object is the main object. It has all other objects (GUI, Enemies, Environment and Agent) as its attribute.
@@ -23,7 +23,7 @@
 - initialize(): create initial broard, enemies, agent
 - run(): start game
 
-#GUI #
+# GUI #
 
 ## Description ##
 - Create a game UI, drawing environment, players and enemies. Receiving environment, enemies and agent info from Game
