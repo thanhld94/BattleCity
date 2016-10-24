@@ -42,6 +42,7 @@
   + 0: empty cell (can move through, can shoot through)
   + 1: wall cell (cannot move through, break if shot)
   + 2: water cell (cannot move through, can shoot through)
+  + 3: base
 
 ## Methods ##
 - update(row, col): changing status of cell (row, col) to destroyed
