@@ -26,11 +26,12 @@ class ControlPlayer(Player):
         self.direction = 0;
 
     def shoot(self):
+        # create and append new bullet to the list
         bullets.append(Bullet(self.pos_row, self.pos_col, self.direction));
-        print("Fired")
         return
 
     def validMove(self, direction):
+        # check the next move against environmental obstacles
         next_row = (self.pos_row + self.dx[self.direction]) % len(self.environment.board)
         next_col = (self.pos_col + self.dy[self.direction]) % len(self.environment.board[0])
         if self.environment.board[next_row][next_col] == self.environment.WATER:
