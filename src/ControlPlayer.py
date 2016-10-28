@@ -1,6 +1,6 @@
 from Player import *
 from Environment import *
-
+from Bullet import *
 # Manually control player with keyboard
 # Import the matrix board from environment - see Environment.py for details
 # Movements:
@@ -11,13 +11,14 @@ from Environment import *
 
 class ControlPlayer(Player):
    
-    def __init__(self, env):
+    def __init__(self, env, bullets):
         #contructor - manually
         self.dx = [1, -1, 0, 0]
         self.dy = [0, 0, 1,-1]
         self.environment = env
         self.map = {'i':1, 'k':0, 'l':2, 'j':3}
         self.setup(1,2)
+        self.bullets = bullets
 
     def setup(self, row, col):
         self.pos_row = row
@@ -25,6 +26,7 @@ class ControlPlayer(Player):
         self.direction = 0;
 
     def shoot(self):
+        bullets.append(Bullet(self.pos_row, self.pos_col, self.direction));
         print("Fired")
         return
 
