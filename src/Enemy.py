@@ -26,18 +26,9 @@ class Enemy(Player):
       self.shoot()
       return
     validMoves = self.getPossibleMoves()
-    print(str(self.pos_row) + " " + str(self.pos_col))
-    if len(validMoves) == 2:
-      # len == 2 means either we are at tunnel, keep moving in the direction we are at
-      next_row = (self.pos_row + self.dx[self.direction]) % len(self.environment.board)
-      next_col = (self.pos_col + self.dy[self.direction]) % len(self.environment.board[0])
-      self.pos_row = next_row
-      self.pos_col = next_col
-      print("dir = " + str(self.direction))
-      return
+    print("possible moves = " + str(validMoves) + " current dir = " + str(self.direction))
     # if we are not in a tunnel then randomize the next move
     next_dir = self.getRandomDir(validMoves)
-    print("dir = " + str(next_dir))
     self.pos_row = (self.pos_row + self.dx[next_dir]) % len(self.environment.board)
     self.pos_col = (self.pos_col + self.dy[next_dir]) % len(self.environment.board[0])
 
@@ -57,7 +48,8 @@ class Enemy(Player):
     
   def getRandomDir(self, possible):
     # getting a random valid direction
-    return possible[random.randrange(0, len(possible), 1)]
+    idx = random.randrange(0, len(possible), 1)
+    return possible[idx]
 
   def getPossibleMoves(self):
     # get a list of possible moves
@@ -65,6 +57,10 @@ class Enemy(Player):
     for direction in range(4):
       if self.validMove(direction):
         possible.append(direction)
+    if self.validMove(self.direction):
+      last = len(possible) * 5
+      for idx in range(last):
+        possible.append(self.direction)
     return possible
 
 
@@ -84,5 +80,5 @@ class Enemy(Player):
   def shoot(self):
     # fire a shot, add bullet to the bullet list
     print("Shot fired")
-    bullets.append(Bullet(self.pos_row, self.pos_col, self.direction))
+    self.bullets.append(Bullet(self.pos_row, self.pos_col, self.direction))
     return

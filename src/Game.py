@@ -10,9 +10,9 @@ bullets_1 = []
 bullets_2 = []
 p1 = ControlPlayer(env, bullets_1)
 enemy = Enemy(env, p1, bullets_2)
-enemy.setup(9, 6)
+enemy.setup(0, 5)
 
-def print_board(env, p1, p2):
+def print_board(env, p1, p2, bullets_1, bullets_2):
   state = {0: ' ', 1: '#', 2: '~', 3: '$'}
   for row in range(len(env.board)):
     print("+", end="")
@@ -41,6 +41,7 @@ def print_board(env, p1, p2):
   print()
 
 while (1):
+  gameover = False
   for bullet in bullets_1:
     bullet.move()
     if bullet.row < 0 or bullet.row >= len(env.board) or bullet.col < 0 or bullet.col >= len(env.board[0]):
@@ -53,34 +54,43 @@ while (1):
     if env.board[bullet.row][bullet.col] == env.BASE:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_1.remove(bullet)
+      gameover = True
       print("GAMEOVER!")
       break
     if enemy.pos_row == bullet.row and enemy.pos_col == bullet.col:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_1.remove(bullet)
+      gameover = True
       print("VICTORY!")
       break
+  if gameover:
+    break
 
   for bullet in bullets_2:
     bullet.move()
     if bullet.row < 0 or bullet.row >= len(env.board) or bullet.col < 0 or bullet.col >= len(env.board[0]):
       bullets_2.remove(bullet)
+      gameover = True
       continue
     if env.board[bullet.row][bullet.col] == env.BRICK:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_2.remove(bullet)
       continue
-    if env.baord[bullet.row][bullet.col] == env.EMPTY:
+    if env.board[bullet.row][bullet.col] == env.BASE:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_2.remove(bullet)
+      gameover = True
       print("GAMEOVER!")
       break
     if p1.pos_row == bullet.row and p1.pos_col == bullet.col:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_2.remove(bullet)
+      gameover = True
       print("GAMEOVER!")
       break
-  print_board(env, p1, enemy)
+  if gameover:
+    break
+  print_board(env, p1, enemy, bullets_1, bullets_2)
   enemy.move()
   p1.move()
   
