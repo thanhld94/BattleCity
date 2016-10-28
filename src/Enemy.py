@@ -83,5 +83,6 @@ class Enemy(Player):
 
   def shoot(self):
     # fire a shot, add bullet to the bullet list
+    print("Shot fired")
     bullets.append(Bullet(self.pos_row, self.pos_col, self.direction))
     return

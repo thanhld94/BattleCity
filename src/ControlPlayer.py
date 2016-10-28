@@ -27,7 +27,7 @@ class ControlPlayer(Player):
 
     def shoot(self):
         # create and append new bullet to the list
-        bullets.append(Bullet(self.pos_row, self.pos_col, self.direction));
+        self.bullets.append(Bullet(self.pos_row, self.pos_col, self.direction));
         return
 
     def validMove(self, direction):

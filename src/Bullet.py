@@ -6,8 +6,8 @@ class Bullet:
     dx = [1, -1, 0, 0]
     dy = [0, 0, 1, -1]
     self.direction = direction
-    self.row = row + dx[direction]
-    self.col = col + dy[direction]
+    self.row = row
+    self.col = col
     
 
   def move(self):
