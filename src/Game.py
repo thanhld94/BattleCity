@@ -10,7 +10,7 @@ bullets_1 = []
 bullets_2 = []
 p1 = ControlPlayer(env, bullets_1)
 enemy = Enemy(env, p1, bullets_2)
-enemy.setup(0, 5)
+enemy.setup(1,10)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):
   state = {0: ' ', 1: '#', 2: '~', 3: '$'}

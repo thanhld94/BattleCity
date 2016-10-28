@@ -29,6 +29,7 @@ class Enemy(Player):
     print("possible moves = " + str(validMoves) + " current dir = " + str(self.direction))
     # if we are not in a tunnel then randomize the next move
     next_dir = self.getRandomDir(validMoves)
+    self.direction = next_dir
     self.pos_row = (self.pos_row + self.dx[next_dir]) % len(self.environment.board)
     self.pos_col = (self.pos_col + self.dy[next_dir]) % len(self.environment.board[0])
 

@@ -17,7 +17,7 @@ class ControlPlayer(Player):
         self.dy = [0, 0, 1,-1]
         self.environment = env
         self.map = {'i':1, 'k':0, 'l':2, 'j':3}
-        self.setup(1,2)
+        self.setup(1,1)
         self.bullets = bullets
 
     def setup(self, row, col):
