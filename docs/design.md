@@ -12,6 +12,11 @@
   + Controling GUI (draw, redraw ... )
   + Feeding data to each objects (environment and enemies info into Agent, environment and agent info to Enemy, environment, agent, enemies to GUI ...)
   + Checking game status (Gameover, update walls, ... ).
+- Each game cycle, update bullet position and environment accordingly
+  + If bullet hit brick, remove brick
+  + If bullet go out side of board, remove bullet
+  + If player's bullet hit enemy, destroy enemy
+  + If enemy's bullet hit player, GAMEOVER
 
 ## Attributes ##
 - Environment environment
@@ -51,8 +56,11 @@
 
 ## Description ##
 - A basic unit with basic pseudeo random movement. Keep moving ahead until it reaches a wall, and fire when Player oobjec the base is insight. 
+- When shoot, create a new bullet object and add it to the bullet list
+- This bullet list is different from the list in player
 
 ## Attributes ##
+- contructor (Environment env, Player player, List<Bullet> bullets) 
 - Position (row, col)
 - moving direction
 
@@ -64,10 +72,24 @@
 
 ## Description ##
 - The agent object. controlling the player movement. Receving info of Environment, Enemies from Game.
+- When shoot, create a new bullet object and add it to the bullet list
 
 ## Attribute ##
 - position
 
 ## Methods ##
-- constructor(Environment env, List<Enemy> enemies)
+- constructor(Environment env, List<Enemy> enemies, List<Bullet> bullets)
 - move()
+
+# Bullet #
+
+## Description ##
+- A bullet object fired by a player (both enemies and player)
+- Position will be updated by Game object
+
+## Attributes ##
+- Direction
+- Position
+
+## Methods ##
+- move() : update position based on direction
