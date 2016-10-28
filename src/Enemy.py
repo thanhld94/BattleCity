@@ -4,12 +4,13 @@ from Environment import *
 
 class Enemy(Player):
 
-  def __init__(self, env, player):
+  def __init__(self, env, player, bullets):
     # constructor
     self.dx = [1, -1, 0, 0] # up, down, right, left
     self.dy = [0, 0, 1, -1] # up, down, right, left
     self.environment = env
     self.player = player
+    self.bullets = bullets
 
   def setup(self, row, col):
     # setup initial position and direction
@@ -80,7 +81,6 @@ class Enemy(Player):
     return False
 
   def shoot(self):
-    # fire a shot
-    # do nothing
-    print("shot fired!")
+    # fire a shot, add bullet to the bullet list
+    bullets.append(Bullet(self.pos_row, self.pos_col, self.direction))
     return
