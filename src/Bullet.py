@@ -1,8 +1,8 @@
 class Bullet:
 
-  def __init__(self, x, y, direction):
-    self.x = x
-    self.y = y
+  def __init__(self, row, col, direction):
+    self.row = row
+    self.col = col
     self.direction = direction
     # up, down, left, right
     global dx, dy
@@ -10,8 +10,5 @@ class Bullet:
     dy = [0, 0, 1, -1]
 
   def move(self):
-    self.x += dx[self.direction]
-    self.y += dy[self.direction]
-
-  def __str__(self):
-    return "pos = " + str(self.x) + ", " + str(self.y) + " dir = " + str(self.direction)
+    self.row += dx[self.direction]
+    self.col += dy[self.direction]
