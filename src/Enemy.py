@@ -1,6 +1,7 @@
 import random
 from Player import *
 from Environment import *
+from Bullet import *
 
 class Enemy(Player):
 
