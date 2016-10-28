@@ -1,5 +1,5 @@
 class Player:
-  def setup(self, row, col):
+  def setup(self, row, col, emenies):
     #setup initial position
     abstract()
 

@@ -5,18 +5,18 @@ from Bullet import *
 
 class Enemy(Player):
 
-  def __init__(self, env, player, bullets):
+  def __init__(self, env, bullets):
     # constructor
     self.dx = [1, -1, 0, 0] # up, down, right, left
     self.dy = [0, 0, 1, -1] # up, down, right, left
     self.environment = env
-    self.player = player
     self.bullets = bullets
 
-  def setup(self, row, col):
+  def setup(self, row, col, player):
     # setup initial position and direction
     self.pos_row = row
     self.pos_col = col
+    self.player = player
     self.direction = 0 # default down
 
   def move(self):
@@ -69,7 +69,7 @@ class Enemy(Player):
     # check if there is a player in the direction we are in
     r = self.pos_row
     c = self.pos_col
-    while r >= 0 and r < len(self.environment.board) and c >= 0 and c <= len(self.environment.board[0]):
+    while r >= 0 and r < len(self.environment.board) and c >= 0 and c < len(self.environment.board[0]):
       if self.environment.board[r][c] == self.environment.BRICK:
         return False
       if r == self.player.pos_row and c == self.player.pos_col:

@@ -8,9 +8,10 @@ env = Environment()
 #p1 = Dummy()
 bullets_1 = []
 bullets_2 = []
-p1 = ControlPlayer(env, bullets_1)
-enemy = Enemy(env, p1, bullets_2)
-enemy.setup(1,10)
+p1 = Enemy(env, bullets_1) 
+enemy = Enemy(env, bullets_2)
+p1.setup(4,2,enemy)
+enemy.setup(4,8,p1)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):
   state = {0: ' ', 1: '#', 2: '~', 3: '$'}
@@ -40,7 +41,9 @@ def print_board(env, p1, p2, bullets_1, bullets_2):
     print("---+", end="")
   print()
 
+t = time.clock()
 while (1):
+  time.sleep(1)
   gameover = False
   for bullet in bullets_1:
     bullet.move()
