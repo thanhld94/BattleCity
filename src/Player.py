@@ -6,3 +6,7 @@ class Player:
   def move(self):
     # update postion each turn
     abstract()
+
+  def shoot(self):
+    # Create and control bullet
+    abstract()
