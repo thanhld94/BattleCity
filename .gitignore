@@ -3,6 +3,7 @@
 
 # python files
 __pycache__
+*.py~
 
 # vim template files
 *.swp
