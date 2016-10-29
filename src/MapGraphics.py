@@ -3,7 +3,7 @@
     in the Environment.py
 '''
 import time, os, sys
-from zellegraphics import *
+from third_parties.zellegraphics import *
 from Environment import *
 from Enemy import *
 from Dummy import *
