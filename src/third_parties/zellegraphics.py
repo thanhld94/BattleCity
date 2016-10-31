@@ -997,6 +997,10 @@ def test():
     win.getMouse()
     t.setFace("arial")
     t.setSize(20)
+    rec = Rectangle(Point(0, 0), Point(2, 2))
+    rec.draw(win)
+    win.getMouse()
+    rec.undraw()
     win.getMouse()
     win.close()
 

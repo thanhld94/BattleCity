@@ -11,8 +11,8 @@ bullets_1 = []
 bullets_2 = []
 p1 = Enemy(env, bullets_1) 
 enemy = Enemy(env, bullets_2)
-p1.setup(4,2,enemy)
-enemy.setup(4,8,p1)
+p1.setup(4,1,enemy)
+enemy.setup(0,2,p1)
 battleGround = MapGraphics(env, enemy, p1)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):
@@ -45,7 +45,7 @@ def print_board(env, p1, p2, bullets_1, bullets_2):
 
 t = time.clock()
 while (1):
-  time.sleep(2)
+  time.sleep(1)
   gameover = False
   for bullet in bullets_1:
     bullet.move()
@@ -96,8 +96,8 @@ while (1):
   if gameover:
     break
   #print_board(env, p1, enemy, bullets_1, bullets_2)
-  battleGround.update(env, p1, enemy)
   battleGround.drawMap()
+  battleGround.update(env, enemy, p1)
   enemy.move()
   p1.move()
   
