@@ -3,6 +3,7 @@ from Environment import *
 from Enemy import *
 from Dummy import *
 from ControlPlayer import *
+from MapGraphics import *
 
 env = Environment()
 #p1 = Dummy()
@@ -12,6 +13,7 @@ p1 = Enemy(env, bullets_1)
 enemy = Enemy(env, bullets_2)
 p1.setup(4,2,enemy)
 enemy.setup(4,8,p1)
+battleGround = MapGraphics(env, enemy, p1)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):
   state = {0: ' ', 1: '#', 2: '~', 3: '$'}
@@ -43,7 +45,7 @@ def print_board(env, p1, p2, bullets_1, bullets_2):
 
 t = time.clock()
 while (1):
-  time.sleep(1)
+  time.sleep(2)
   gameover = False
   for bullet in bullets_1:
     bullet.move()
@@ -93,7 +95,9 @@ while (1):
       break
   if gameover:
     break
-  print_board(env, p1, enemy, bullets_1, bullets_2)
+  #print_board(env, p1, enemy, bullets_1, bullets_2)
+  battleGround.update(env, p1, enemy)
+  battleGround.drawMap()
   enemy.move()
   p1.move()
   
