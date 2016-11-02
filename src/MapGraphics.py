@@ -44,10 +44,9 @@ class MapGraphics:
         self.enemy = enemy
         self.p1 = player
 
-    # drawMap main points:
-    # Check each cell of the matrix and redraw and change color of each cell base
-    # on the difference between old and new update environment
-    # Future test: did not test the case in which the brick cell is delete because of bullet collision
+    # drawInitialMap:
+    # Draw the static map with matrix of rectangles
+    # of obstacle blocks
     def drawInitialMap(self):
         for row in range (0, len(self.env.board)*2, 2):
             for col in range (0, len(self.env.board[0])*2, 2):
@@ -69,6 +68,10 @@ class MapGraphics:
                    self.matrix[row][col].draw(self.win)
                    self.matrix[row][col].setFill("yellow")
 
+
+    # drawMap:
+    # update the matrix with new changes and keep track of bullets
+    # from player and enemy
     def drawMap(self):
         self.win.update()
         # delete old position of enemy and player
