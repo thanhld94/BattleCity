@@ -9,10 +9,10 @@ env = Environment()
 #p1 = Dummy()
 bullets_1 = []
 bullets_2 = []
-p1 = Enemy(env, bullets_1) 
+p1 = Enemy(env, bullets_1)
 enemy = Enemy(env, bullets_2)
 p1.setup(4,1,enemy)
-enemy.setup(0,2,p1)
+enemy.setup(0,7,p1)
 battleGround = MapGraphics(env, enemy, p1)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):
@@ -44,8 +44,9 @@ def print_board(env, p1, p2, bullets_1, bullets_2):
   print()
 
 t = time.clock()
+battleGround.drawInitialMap()
 while (1):
-  time.sleep(1)
+  time.sleep(0.25)
   gameover = False
   for bullet in bullets_1:
     bullet.move()
@@ -67,6 +68,8 @@ while (1):
       bullets_1.remove(bullet)
       gameover = True
       print("VICTORY!")
+      battleGround.update(env, enemy, p1)
+      battleGround.drawMap()
       break
   if gameover:
     break
@@ -76,6 +79,9 @@ while (1):
     if bullet.row < 0 or bullet.row >= len(env.board) or bullet.col < 0 or bullet.col >= len(env.board[0]):
       bullets_2.remove(bullet)
       gameover = True
+      print("GAMEOVER!")
+      battleGround.update(env, enemy, p1)
+      battleGround.drawMap()
       continue
     if env.board[bullet.row][bullet.col] == env.BRICK:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
@@ -86,12 +92,16 @@ while (1):
       bullets_2.remove(bullet)
       gameover = True
       print("GAMEOVER!")
+      battleGround.update(env, enemy, p1)
+      battleGround.drawMap()
       break
     if p1.pos_row == bullet.row and p1.pos_col == bullet.col:
       env.updateCell(bullet.row, bullet.col, env.EMPTY)
       bullets_2.remove(bullet)
       gameover = True
       print("GAMEOVER!")
+      battleGround.update(env, enemy, p1)
+      battleGround.drawMap()
       break
   if gameover:
     break
@@ -100,4 +110,3 @@ while (1):
   battleGround.update(env, enemy, p1)
   enemy.move()
   p1.move()
-  
