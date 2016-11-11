@@ -36,3 +36,9 @@ If there is no bullet in a direction, that value will be INF
 - m1: down
 - m2: left
 - m3: right
+
+#### Base Information
+3 values represent the status of the walls protecting the base
+- a0: left brick
+- a1: top brick
+- a2: right brick
