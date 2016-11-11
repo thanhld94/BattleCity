@@ -1,9 +1,9 @@
 # Designs #
  - 5 main objects: Game, GUI, Enemies, Environment, Agent
 
-# Game Object #
+## Game Object ##
 
-## Description ##
+### Description ###
 -The Game object is the main object. It has all other objects (GUI, Enemies, Environment and Agent) as its attribute.
 - Connect all elements together and run the game.
   + Creating a list of enemies objects
@@ -18,78 +18,113 @@
   + If player's bullet hit enemy, destroy enemy
   + If enemy's bullet hit player, GAMEOVER
 
-## Attributes ##
+### Attributes ###
 - Environment environment
 - GUI Graphic
 - Player agent
 - List of Enemy objects
 
-## Methods ##
+### Methods ###
 - initialize(): create initial broard, enemies, agent
 - run(): start game
 
-# GUI #
+## GUI ##
 
-## Description ##
+### Description ###
 - Create a game UI, drawing environment, players and enemies. Receiving environment, enemies and agent info from Game
 
-## Methods ##
+### Methods ###
 - constructor (Environment env, List<Enemy> enemies, Player player)
 - draw(Environment env, List<Enemy> enemies, Player player)
 - drawEnvironment(Environment environment)
 - drawEnemies(List<Enemy> enemies)
 - drawPlayer(Player player)
 
-# Environment #
+## Environment ##
 
-## Attributes##
+### Attributes###
 - int board[][]: each cell will represent status of each cell
   + 0: empty cell (can move through, can shoot through)
   + 1: wall cell (cannot move through, break if shot)
   + 2: water cell (cannot move through, can shoot through)
   + 3: base
 
-## Methods ##
+### Methods ###
 - update(row, col): changing status of cell (row, col) to destroyed
 
-#Enemy #
+##Enemy ##
 
-## Description ##
+### Description ###
 - A basic unit with basic pseudeo random movement. Keep moving ahead until it reaches a wall, and fire when Player oobjec the base is insight. 
 - When shoot, create a new bullet object and add it to the bullet list
 - This bullet list is different from the list in player
 
-## Attributes ##
+### Attributes ###
 - contructor (Environment env, Player player, List<Bullet> bullets) 
 - Position (row, col)
 - moving direction
 
-## Methods ##
+### Methods ###
 - constructor (Environment env, Player player)
 - move()
 
-#Player #
+##Player ##
 
-## Description ##
+### Description ###
 - The agent object. controlling the player movement. Receving info of Environment, Enemies from Game.
 - When shoot, create a new bullet object and add it to the bullet list
 
-## Attribute ##
+### Attribute ###
 - position
 
-## Methods ##
+### Methods ###
 - constructor(Environment env, List<Enemy> enemies, List<Bullet> bullets)
 - move()
 
-# Bullet #
+## Bullet ##
 
-## Description ##
+### Description ###
 - A bullet object fired by a player (both enemies and player)
 - Position will be updated by Game object
 
-## Attributes ##
+### Attributes ###
 - Direction
 - Position
 
-## Methods ##
+### Methods ###
 - move() : update position based on direction
+
+## Neural network design
+
+### Game state
+A vector of features that determines a state/ positional board
+
+### Values
+#### Position
+The row and column of the agent's cell
+
+#### Direction
+The agent's current direction (0..3)
+
+#### Enemy distance
+4 values representing the distance between the agent and enemies in the 4 direction. 
+If there is no enemy in a direction, that value will be INF
+- d0: distance between the closest enemy above
+- d1: distance between the closest enemy below
+- d2: distance between the closest enemy on the left
+- d3: distance between the closest enemy on the right
+
+#### Bullet distance
+4 values representing the distance between the agent and bullets in the 4 direction. 
+If there is no bullet in a direction, that value will be INF
+- d0: distance between the closest bullet above
+- d1: distance between the closest bullet below
+- d2: distance between the closest bullet on the left
+- d3: distance between the closest bullet on the right
+
+#### Available movement
+4 values representing the movement availability in 4 directions
+- m0: up
+- m1: down
+- m2: left
+- m3: right
