@@ -1,6 +1,6 @@
-## Neural network design
+# Neural network design
 
-### Input vector
+## Input vector
 A vector of features that determines a state/ positional board
 
 ### Values
@@ -43,7 +43,7 @@ If there is no bullet in a direction, that value will be INF
 - a1: top brick
 - a2: right brick
 
-### Output Vector
+## Output Vector
 The 5 possible action of the agent
 - 0: move up
 - 1: move down
