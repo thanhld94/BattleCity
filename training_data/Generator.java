@@ -34,13 +34,18 @@ public class Generator {
       System.err.println("Bad input file");
       e.printStackTrace();
     }
+    List<DataSet> data = new ArrayList<DataSet>();
     for (int i = 0; i < ntest; i++) {
-      printVector(nrows, ncols, inf, output);
+      data.add(printVector(nrows, ncols, inf));
+    }
+    Collections.sort(data);
+    for (DataSet record : data) {
+      record.print(output);
     }
     output.close();
   }
 
-  private void printVector(int nrows, int ncols, int inf, PrintWriter out) {
+  private DataSet printVector(int nrows, int ncols, int inf) {
     Random rand = new Random();
     // position
     int row = rand.nextInt(nrows);
@@ -111,18 +116,106 @@ public class Generator {
       if (coin == 1) bases[i] = 1; // flip success;
     }
     
-    // print
-    out.print(row + " " + col + " "); // position
-    out.print(currentDirection + " "); // current direction
-    out.print(enemyUp + " " + enemyDown + " " + enemyLeft + " " + enemyRight + " "); // enemy position
-    out.print(bulletUp + " " + bulletDown + " " + bulletLeft + " " + bulletRight + " "); // bullet position
-    for (int i = 0; i < directions.length; i++) {
-      out.print(directions[i] + " ");
+    DataSet record = new DataSet();
+    record.row = row;
+    record.col = col; // position
+    record.currentDirection = currentDirection; // current direction
+    record.enemyUp = enemyUp;
+    record.enemyDown = enemyDown;
+    record.enemyLeft = enemyLeft;
+    record.enemyRight = enemyRight; // enemy position
+    record.bulletUp = bulletUp;
+    record.bulletDown = bulletDown;
+    record.bulletLeft = bulletLeft;
+    record.bulletRight = bulletRight; // bullet position
+    for (int i = 0; i < directions.length; i++) { // movement direction
+      record.directions[i] = directions[i];
     }
     for (int i = 0; i < bases.length; i++) {
-      out.print(bases[i] + " ");
+      record.bases[i] = bases[i];
     }
-    out.println();
+    return record;
   }
 
+  private class DataSet implements Comparable<DataSet> {
+    private int row;
+    private int col;
+    private int currentDirection;
+    private int enemyUp;
+    private int enemyDown;
+    private int enemyLeft;
+    private int enemyRight;
+    private int bulletUp;
+    private int bulletDown;
+    private int bulletLeft;
+    private int bulletRight;
+    private int[] directions;
+    private int[] bases;
+
+    private DataSet() {
+      directions = new int[4];
+      bases = new int[3];
+    }
+
+    @Override public int compareTo(DataSet other) { // checking value by value
+      if (row != other.row) {
+        return row - other.row;
+      }
+      if (col != other.col) {
+        return col - other.col;
+      }
+      if (currentDirection != other.currentDirection) {
+        return currentDirection - other.currentDirection;
+      }
+      if (enemyUp != other.enemyUp) {
+        return enemyUp - other.enemyUp;
+      }
+      if (enemyDown != other.enemyDown) {
+        return enemyDown - other.enemyDown;
+      }
+      if (enemyLeft != other.enemyLeft) {
+        return enemyLeft - other.enemyLeft;
+      }
+      if (enemyRight != other.enemyRight) {
+        return enemyRight - other.enemyRight;
+      }
+      if (bulletUp != other.bulletUp) {
+        return bulletUp - other.bulletUp;
+      }
+      if (bulletDown != other.bulletDown) {
+        return bulletDown - other.bulletDown;
+      }
+      if (bulletLeft != other.bulletLeft) {
+        return bulletLeft - other.bulletLeft;
+      }
+      if (bulletRight != other.bulletRight) {
+        return bulletRight - other.bulletRight;
+      }
+      for (int i = 0; i < 4; i++) {
+        if (directions[i] != other.directions[i]) {
+          return directions[i] - other.directions[i];
+        }
+      }
+      for (int i = 0; i < bases.length; i++) {
+        if (bases[i] != other.bases[i]) {
+          return bases[i] - other.bases[i];
+        }
+      }
+      return 0; // otherwise 2 record are the same
+    }
+
+    private void print(PrintWriter out) {
+      out.print(row + " " + col + " "); // position
+      out.print(currentDirection + " "); // current direction
+      out.print(enemyUp + " " + enemyDown + " " + enemyLeft + " " + enemyRight + " "); // enemy position
+      out.print(bulletUp + " " + bulletDown + " " + bulletLeft + " " + bulletRight + " "); // bullet position
+      for (int i = 0; i < directions.length; i++) {
+        out.print(directions[i] + " ");
+      }
+      for (int i = 0; i < bases.length; i++) {
+        out.print(bases[i] + " ");
+      }
+      out.println();
+    }
+  }
 }
