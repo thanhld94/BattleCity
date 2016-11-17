@@ -11,8 +11,8 @@ bullets_1 = []
 bullets_2 = []
 p1 = Enemy(env, bullets_1)
 enemy = Enemy(env, bullets_2)
-p1.setup(4,1,enemy)
-enemy.setup(0,7,p1)
+p1.setup(4,5,enemy)
+enemy.setup(2,9,p1)
 battleGround = MapGraphics(env, enemy, p1)
 
 def print_board(env, p1, p2, bullets_1, bullets_2):

@@ -1,4 +1,5 @@
 # Create the matrix board
+import numpy as np
 class Environment:
   
   def __init__(self):
@@ -21,6 +22,7 @@ class Environment:
       [2,1,0,1,1,1,0,0,1,2],
       [2,1,0,1,3,1,0,0,1,2]
     ]
+    self.board = np.rot90(self.board, -1)
 
   def updateCell (self, row, col, newState):
     self.board[row][col] = newState
