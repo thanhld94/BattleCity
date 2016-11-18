@@ -105,7 +105,7 @@ public class Translator {
     int canMoveDown = Integer.parseInt(st.nextToken());
     int canMoveLeft = Integer.parseInt(st.nextToken());
     int canMoveRight = Integer.parseInt(st.nextToken());
-    if (canMoveUp == 0 && canMoveRight == 0 && canMoveLeft == 0 
+    if (canMoveUp == 0 && canMoveDown == 0 && canMoveLeft == 0 
           && canMoveRight == 0) {
       System.out.println("Cannot move! Bad data :(");
     }
