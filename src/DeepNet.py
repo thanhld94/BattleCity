@@ -1,6 +1,10 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot = True)
+
+# generating numpy data
+import numpy as np
+from numpy import genfromtxt
+my_data = genfromtxt('../training_data/sorted_data.csv', delimiter=',', dtype='int32')
 
 # each state of the game is represent as a vector of 18 features
 # and this will be the size of the input vector
@@ -41,5 +45,22 @@ def neural_network_model(data):
   output = tf.matmul(l3,output_layer['weights']) + output_layer['biases']
   return output
 
-#TODO Processing the input data (convert the csv file to the correct type)
-#TODO write the training
+# Training the model
+def train_neural_network(prediction):
+  # Setting up
+  cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(prediction,y) )
+  optimizer = tf.train.AdamOptimizer().minimize(cost)
+  with tf.Session() as sess:
+    sess.run(tf.initialize_all_variables())
+    # iterate through each record in the training data
+    for idx in range(1000):
+      # setting up the record and expected vector
+      record = np.reshape(np.array(my_data[idx][:numberOfFeatures]), (1, numberOfFeatures))
+      expected = [[0,0,0,0,0]]
+      expected[0][my_data[idx][numberOfFeatures] - 1] = 1
+      # training
+      _, epoch_loss = sess.run([optimizer, cost], feed_dict={x: record, y: expected})
+      #print('Record', idx, 'completed out of', len(my_data), 'loss:', epoch_loss)
+
+model = neural_network_model(x)
+train_neural_network(model)
