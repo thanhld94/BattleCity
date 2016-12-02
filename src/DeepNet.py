@@ -43,8 +43,8 @@ y_ = tf.placeholder('float')
 # 3 hidden layer with an output layer with each node represent a possible action
 # including move up/down/left/right and shoot
 def neural_network_model(data):
-    hidden_1_layer = {'weights':tf.Variable(tf.random_normal([numberOfFeatures, nodesLayer1])), 
-                      'biases':tf.Variable(tf.random_normal([nodesLayer1]))}
+  hidden_1_layer = {'weights':tf.Variable(tf.random_normal([numberOfFeatures, nodesLayer1])), 
+                    'biases':tf.Variable(tf.random_normal([nodesLayer1]))}
   hidden_2_layer = {'weights':tf.Variable(tf.random_normal([nodesLayer1, nodesLayer2])), 
                       'biases':tf.Variable(tf.random_normal([nodesLayer2]))}
   hidden_3_layer = {'weights':tf.Variable(tf.random_normal([nodesLayer2, nodesLayer3])), 
