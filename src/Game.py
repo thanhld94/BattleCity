@@ -1,15 +1,14 @@
 import time
 from Environment import *
 from Enemy import *
-from Dummy import *
-from ControlPlayer import *
+from Agent import *
 from MapGraphics import *
 
 env = Environment()
 #p1 = Dummy()
 bullets_1 = []
 bullets_2 = []
-p1 = Enemy(env, bullets_1)
+p1 = Agent(env, bullets_1)
 enemy = Enemy(env, bullets_2)
 p1.setup(4,5,enemy)
 enemy.setup(2,9,p1)
