@@ -26,7 +26,6 @@ class Enemy(Player):
       self.shoot()
       return
     validMoves = self.getPossibleMoves()
-    print("possible moves = " + str(validMoves) + " current dir = " + str(self.direction))
     # if we are not in a tunnel then randomize the next move
     next_dir = self.getRandomDir(validMoves)
     self.direction = next_dir
@@ -80,6 +79,5 @@ class Enemy(Player):
 
   def shoot(self):
     # fire a shot, add bullet to the bullet list
-    print("Shot fired")
     self.bullets.append(Bullet(self.pos_row, self.pos_col, self.direction))
     return

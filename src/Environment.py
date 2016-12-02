@@ -23,6 +23,7 @@ class Environment:
       [2,1,0,1,3,1,0,0,1,2]
     ]
     self.board = np.rot90(self.board, -1)
+    self.baseState = [self.board[3][0], self.board[4][1],self.board[5][0]]
 
   def updateCell (self, row, col, newState):
     self.board[row][col] = newState

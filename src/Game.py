@@ -8,9 +8,11 @@ env = Environment()
 #p1 = Dummy()
 bullets_1 = []
 bullets_2 = []
-p1 = Agent(env, bullets_1)
+enemies = []
 enemy = Enemy(env, bullets_2)
-p1.setup(4,5,enemy)
+enemies.append(enemy)
+p1 = Agent(env, bullets_1, enemies)
+p1.setup(2,5,enemy)
 enemy.setup(2,9,p1)
 battleGround = MapGraphics(env, enemy, p1)
 
