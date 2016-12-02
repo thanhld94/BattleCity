@@ -5,38 +5,16 @@ from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
 from numpy import genfromtxt
 
-# load data from files
-data_in = genfromtxt('../training_data/sorted_data.in', delimiter=' ', dtype='int32')
-raw_out = genfromtxt('../training_data/sorted_data.out', delimiter=' ', dtype='int32')
-
-data_out = []
-# reformating the output
-for i in range(len(raw_out)):
-  temp = [0,0,0,0,0]
-  temp[raw_out[i]] = 1;
-  data_out.append(temp)
-
-# separate in and out data
-train_in = data_in[:9000]
-train_out = data_out[:9000]
-test_in = data_in[9001:]
-test_out = data_out[9001:]
-
 # each state of the game is represent as a vector of 18 features
 # and this will be the size of the input vector
 numberOfFeatures = 18
-
 # 5 actions: up/down/left/right/shoot
 numberOfActions = 5
-
 # neural network model statistic
 nodesLayer1 = 500
 nodesLayer2 = 500
 nodesLayer3 = 500
 
-# placehodlers for data
-x = tf.placeholder('float', [None, numberOfFeatures])
-y_ = tf.placeholder('float')
 
 # Setting up the model
 # creating the model for the neural network
@@ -60,25 +38,78 @@ def neural_network_model(data):
   output = tf.matmul(l3,output_layer['weights']) + output_layer['biases']
   return output
 
-# Training the model
-def train_neural_network(prediction):
-  # Setting up
-  cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(prediction, y_))
-  optimizer = tf.train.AdamOptimizer().minimize(cost)
-  with tf.Session() as sess:
-    sess.run(tf.initialize_all_variables())
-    # Iterate through each record in the training data
-    for idx in range(len(train_in)):
-      # Setting up the record and expected vector
-      record = np.reshape(train_in[idx], (1, numberOfFeatures))
-      expected = []
-      expected.append(train_out[idx])
-      # Training
-      _, epoch_loss = sess.run([optimizer, cost], feed_dict={x: record, y_: expected})
-    # Evaluating the agent
-    correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(y_, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, 'float'))
-    print('Accuracy:', accuracy.eval({x: test_in, y_:test_out}))
+class DeepNet:
+  
+  def __init__(self, dataInFile, dataOutFile):
+    self.train_in = []
+    self.train_out = []
+    self.test_in = []
+    self.test_out = []
+    self.loadDataFromFiles(dataInFile, dataOutFile)
+    self.setupVariables()
+    self.model = neural_network_model(self.x)
+    self.sess = tf.Session()
+    self.sess.run(tf.initialize_all_variables())
 
-model = neural_network_model(x)
-train_neural_network(model)
+  def loadDataFromFiles(self, datain, dataout):
+    # load data from files
+    data_in = genfromtxt(datain, delimiter=' ', dtype='int32')
+    raw_out = genfromtxt(dataout, delimiter=' ', dtype='int32')
+    data_out = []
+    # reformating the output
+    for i in range(len(raw_out)):
+      temp = [0,0,0,0,0]
+      temp[raw_out[i]] = 1;
+      data_out.append(temp)
+    # separate in and out data
+    self.train_in = data_in[:9000]
+    self.train_out = data_out[:9000]
+    self.test_in = data_in[9001:]
+    self.test_out = data_out[9001:]
+
+
+  def setupVariables(self):
+    # placehodlers for data
+    self.x = tf.placeholder('float', [None, numberOfFeatures])
+    self.y_ = tf.placeholder('float')
+
+  # Training the model
+  def train(self, numberOfTrainingRecords):
+    # Setting up
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(self.model, self.y_))
+    optimizer = tf.train.AdamOptimizer().minimize(cost)
+    with tf.Session() as sess:
+      sess.run(tf.initialize_all_variables())
+      # Iterate through each record in the training data
+      for idx in range(min(len(self.train_in), numberOfTrainingRecords)):
+        # Setting up the record and expected vector
+        record = np.reshape(self.train_in[idx], (1, numberOfFeatures))
+        expected = []
+        expected.append(self.train_out[idx])
+        # Training
+        _, epoch_loss = sess.run([optimizer, cost], feed_dict={self.x: record, self.y_: expected})
+      # Evaluating the agent
+      correct_prediction = tf.equal(tf.argmax(self.model, 1), tf.argmax(self.y_, 1))
+      accuracy = tf.reduce_mean(tf.cast(correct_prediction, 'float'))
+      print('Accuracy:', accuracy.eval({self.x: self.test_in, self.y_:self.test_out}))
+
+  # Give prediction to a state
+  def predict(self, record):
+    data = []
+    data.append(record)
+    evaluation = self.sess.run(self.model, feed_dict={self.x: data})[0]
+    # chosing the value with the highest value
+    answer = 0
+    for i in range(len(evaluation)):
+      if evaluation[i] > evaluation[answer]:
+        answer = i
+    return answer
+    
+# Example
+#
+#  myNN = DeepNet("../training_data/sorted_data.in", "../training_data/sorted_data.out")
+#
+#  myNN.train(10000)
+#  print(myNN.predict([0, 0, 0, 300, 4, 300, 1, 300, 6, 300, 6, 0, 0, 0, 0, 0, 1, 1]))
+#
+#
